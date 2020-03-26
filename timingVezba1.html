@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timing Events</title>
+    <style rel="stylesheet" type="text/css"></style>
+  </head>
+  <body>
+    <div id="cont">
+      <div id="okvir">
+        <button class="btn" id="btn1">Klikni za Ispis!</button> <br />
+        <br />
+        <button class="btn" id="btn2">Klikni za Prekid!</button>
+        <button class="btn" id="btn3">Pocni Odbrojavanje!</button> <br />
+        <br />
+        <button class="btn" id="btn4">Zaustavi Odbrojavanje!</button> <br />
+        <br />
+      </div>
+    </div>
+    <div id="okvir2"></div>
+    <div id="sat"></div>
+    <script>
+      // Timing Events
+      // setTimeout - Izvrsava funkciju nakon odredjenog broja milisekundi
+      // setInterval - Ponavlja funkciju nakon odredjenog broja milisekundi
+      let cont = document.getElementById("cont");
+      let okvir = document.getElementById("okvir");
+      let okvir2 = document.getElementById("okvir2");
+      okvir.style.margin = "150px auto";
+      let btn = document.querySelectorAll(".btn");
+      //   let btns = Object.from(btn);
+      console.log(btn);
+
+      btn.forEach(b => {
+        b.style.fontSize = "30px";
+        b.style.borderRadius = "5px";
+        b.style.border = "solid #95a5a6 5px";
+        b.style.color = "white";
+        b.style.backgroundColor = "#2c3e50";
+        b.style.fontFamily = "'Chakra Petch', sans-serif";
+      });
+
+      let btn4 = document.getElementById("btn4");
+
+      setTimeout(() => {
+        console.log("Hello Jovana!");
+      }, 2000);
+
+      // setInterval(() => {
+      //     console.log("Hello Jovana!");
+      // }, 2000);
+
+      // 1000 ms = 1 sec; 1000 * 60 * 10 = 10 min
+      // Zadatak 1
+
+      let btn1 = document.getElementById("btn1");
+      btn1.addEventListener("click", () => {
+        // setInterval(() => {
+        //   console.log("Hello Jovana!");
+        // }, 2000);
+        // setTimeout(() => {
+        //   document.body.style.backgroundColor = "purple";
+        // }, 1000 * 3);
+        timer = setTimeout(() => {
+          console.log("Hello Jovana!");
+        }, 2000);
+      });
+
+      let btn2 = document.getElementById("btn2");
+      let timer;
+
+      btn2.addEventListener("click", () => {
+        clearInterval(timer);
+      });
+
+      let btn3 = document.getElementById("btn3");
+      let brojac = 0;
+      let clock;
+      let clockIsSet = false;
+
+      btn3.addEventListener("click", () => {
+        if (!clockIsSet) {
+          clockIsSet = true;
+          clock = setInterval(() => {
+            brojac++;
+            okvir2.innerHTML = brojac;
+          }, 1000 * 2);
+        }
+      });
+
+      btn4.addEventListener("click", () => {
+        clearInterval(clock);
+        clockIsSet = false;
+      });
+
+      // Napravi digitalni sat koji prikazuje trenutno vreme
+
+      let sat = document.getElementById("sat");
+      sat.style.fontSize = "50px";
+      sat.style.color = "#2c3e50";
+      sat.style.margin = "25px";
+      sat.style.fontFamily = "'Chakra Petch', sans-serif";
+
+      setInterval(function() {
+        let datum = new Date();
+        let sati = datum.getHours();
+        let minuti = datum.getMinutes();
+        let sekunde = datum.getSeconds();
+        sat.innerHTML = `${sati}:${minuti}:${sekunde}`;
+        if (sati > 10) {
+          sati = "0" + sati;
+        }
+        if (minuti < 10) {
+          minuti = "0" + minuti;
+        }
+        if (sekunde < 10) {
+          sekunde = "0" + sekunde;
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>

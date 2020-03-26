@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kviz Vezba 2</title>
+  </head>
+  <style>
+    body {
+      background-color: #ae0001;
+    }
+
+    .container,
+    .finish,
+    .rez {
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .text {
+      width: 90%;
+      padding: 0 15px;
+      margin: 0 auto;
+      min-width: 400px;
+    }
+
+    .text h2,
+    .rez {
+      color: #eeba30;
+      font-size: 4.5rem;
+      font-weight: bold;
+      line-height: 1.2;
+      min-width: 380px;
+    }
+
+    .quiz {
+      padding: 10px 0;
+      background-color: #740001;
+      min-width: 410px;
+    }
+
+    .question {
+      margin: 50px 0;
+    }
+
+    .question p {
+      margin: 10px 20px;
+      color: #eeba30;
+      font-size: 2.2em;
+    }
+
+    .check {
+      margin: 20px 20px;
+      font-size: 1.6em;
+      color: #000000;
+    }
+
+    .rez {
+      display: none;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="text">
+        <h2>Da li si pravi Grifindorac? &#128523</h2>
+      </div>
+    </div>
+    <div class="rez" id="rez"></div>
+    <div class="quiz">
+      <div class="text">
+        <form action="">
+          <div class="question">
+            <p>1. Cujes vrisak na drugom kraju hodnika! Da li ces:</p>
+            <div class="check">
+              <input type="radio" name="q1" value="A" checked />
+              <label for="">Priskociti u pomoc, naravno!</label> <br />
+              <input type="radio" name="q1" value="B" />
+              <label for="">Brze-bolje javiti najblizem nastavniku!</label>
+              <br />
+            </div>
+          </div>
+          <div class="question">
+            <p>2. Zivotinja na grbu kuce Grifindor je:</p>
+            <div class="check">
+              <input type="radio" name="q2" value="A" checked />
+              <label for="">Zec!</label> <br />
+              <input type="radio" name="q2" value="B" />
+              <label for="">Lav!</label>
+              <br />
+            </div>
+          </div>
+          <div class="question">
+            <p>3. Glavesina kuce Grifindor je:</p>
+            <div class="check">
+              <input type="radio" name="q3" value="A" checked />
+              <label for="">Minerva Mekgonagal!</label> <br />
+              <input type="radio" name="q3" value="B" />
+              <label for="">Dolores Ambridz!</label>
+              <br />
+            </div>
+          </div>
+          <div class="question">
+            <p>4. Boje Grifindora su:</p>
+            <div class="check">
+              <input type="radio" name="q4" value="A" checked />
+              <label for="">Crna i Zlatna!</label> <br />
+              <input type="radio" name="q4" value="B" />
+              <label for="">Crvena i Zlatna!</label>
+              <br />
+            </div>
+          </div>
+          <div class="question">
+            <p>5. Osnivac kuce Grifindor je:</p>
+            <div class="check">
+              <input type="radio" name="q5" value="A" checked />
+              <label for="">Godrik Grifindor!</label> <br />
+              <input type="radio" name="q5" value="B" />
+              <label for="">Sedrik Grifindor!</label>
+              <br />
+            </div>
+          </div>
+          <div class="finish">
+            <input type="submit" name="submit" id="submit" value="KRAJ" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      let form = document.querySelector("form");
+      console.log(form);
+      let tacniOdgovori = ["A", "B", "A", "B", "A"];
+      console.log(tacniOdgovori);
+      let rez = document.getElementById("rez");
+      console.log(rez);
+
+      form.addEventListener("submit", event => {
+        event.preventDefault();
+        let odg1 = form.q1.value;
+        let odg2 = form.q2.value;
+        let odg3 = form.q3.value;
+        let odg4 = form.q4.value;
+        let odg5 = form.q5.value;
+        let odgovori = [odg1, odg2, odg3, odg4, odg5];
+        let suma = 0;
+        odgovori.forEach((o, i) => {
+          console.log(o, i);
+          console.log(tacniOdgovori[i]);
+          if (o == tacniOdgovori[i]) {
+            suma += 20;
+          }
+        });
+        console.log(suma);
+        scrollTo(0, 0);
+        rez.style.display = "block";
+        let br = 0;
+        let clock = setInterval(() => {
+            rez.textContent = `Vas rezultat je ${br}%!`;
+            if (br < suma) {
+                br++;
+            } else {
+                clearInterval(clock);
+            }
+        }, 40);
+      });
+    </script>
+  </body>
+</html>

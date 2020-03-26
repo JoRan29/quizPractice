@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kviz</title>
+    <style rel="stylesheet" type="text/css">
+      body {
+        background-color: #dfe4ea;
+      }
+
+      .intro,
+      .finish {
+        padding: 10px 0;
+        text-align: center;
+      }
+
+      .text {
+        width: 90%;
+        padding: 0 15px;
+        margin: 0 auto;
+      }
+
+      .text h2 {
+        color: #833471;
+        font-size: 4.5rem;
+        font-weight: bold;
+        line-height: 1.2;
+      }
+
+      .quiz {
+        padding: 10px 0;
+        background-color: #cad0d6;
+      }
+
+      .question {
+        margin: 50px 0;
+      }
+
+      .question p {
+        margin: 10px 20px;
+        color: #574b90;
+        font-size: 2.2em;
+      }
+
+      .check {
+        margin: 20px 20px;
+        font-size: 1.6em;
+        color: #786fa6;
+      }
+
+      .check:hover {
+        margin: 10px 15px;
+        color: #574b90;
+        font-size: 2.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="intro">
+      <div class="text">
+        <h2>Koliko je Linux za tebe?</h2>
+      </div>
+    </div>
+    <div class="quiz">
+      <div class="text">
+        <form action="">
+          <div class="question">
+            <p>1. Koju lampu bi najradije koristio u svojoj kancelariji?</p>
+            <div class="check">
+              <input type="radio" class="q1" name="q1" value="A" checked />
+              <label for="q1">Stona lampa.</label> <br />
+              <input type="radio" class="q1" name="q1" value="B" />
+              <label for="q1">Dovoljna je sijalica u sobi!</label>
+            </div>
+          </div>
+          <div class="question">
+            <p>2. Vise volis desktop ili laptop racunare?</p>
+            <div class="check">
+              <input type="radio" class="q2" name="q2" value="A" checked />
+              <label for="q2">Desktop.</label> <br />
+              <input type="radio" class="q2" name="q2" value="B" />
+              <label for="q2">Laptop!</label>
+            </div>
+          </div>
+          <div class="question">
+            <p>
+              3. Koliko cesto otklanjas tehnicke probleme rodbini i drugarima?
+            </p>
+            <div class="check">
+              <input type="radio" class="q3" name="q3" value="A" checked />
+              <label for="q3"
+                >Jako retko, kad me bas zamole, ne volim to.</label
+              >
+              <br />
+              <input type="radio" class="q3" name="q3" value="B" />
+              <label for="q3">Nemam vremena za takve gluposti!</label>
+            </div>
+          </div>
+          <div class="question">
+            <p>4. Gde skidas muziku?</p>
+            <div class="check">
+              <input type="radio" class="q4" name="q4" value="A" checked />
+              <label for="q4">Spotify.</label> <br />
+              <input type="radio" class="q4" name="q4" value="B" />
+              <label for="q4">ThePirateBay!</label>
+            </div>
+          </div>
+          <div class="question">
+            <p>5. Da li si vegeterijanac?</p>
+            <div class="check">
+              <input type="radio" class="q5" name="q5" value="A" checked />
+              <label for="q1">Da, fuj meso!</label> <br />
+              <input type="radio" class="q5" name="q5" value="B" />
+              <label for="q1"
+                >Pobogu, ne! Kako da izdrzim sav ovaj stres bez mesa da mi
+                ulepsa dan?</label
+              >
+            </div>
+            <div class="question">
+                <p>6. Filmovi ili serije?</p>
+                <div class="check">
+                  <input type="radio" class="q5" name="q6" value="A" checked />
+                  <label for="q1">Filmovi!</label> <br />
+                  <input type="radio" class="q5" name="q6" value="B" />
+                  <label for="q1"
+                    >Serije</label
+                  >
+                </div>
+                <div class="question">
+                    <p>7. Koji ti je nadimak?</p>
+                    <div class="check">
+                      <input value="" type="text" id="nick" name="nick" placeholder="Upisi nadimak..." />
+                    </div>
+          </div>
+          <div class="finish">
+            <input type="submit" class="submit" value="KRAJ" />
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      let form = document.querySelector("form");
+      let tacniOdgovori = ["B", "A", "B", "B", "B", "A"];
+
+      let divOdg = document.createElement("div");
+      divOdg.classList.add("intro");
+      let text = document.createElement("div");
+      text.classList.add("text");
+      let h2 = document.createElement("h2");
+      text.appendChild(h2);
+      divOdg.appendChild(text);
+
+      let whereChild = document.body.children[1];
+      document.body.insertBefore(divOdg, whereChild);
+      divOdg.style.display = "none";
+
+      form.addEventListener("submit", event => {
+        // Spreci default ponasanje (slanje informacije na server)
+        event.preventDefault();
+        // Odredi koji radio button je selektovan - Generalni nacin
+        /* let radios = document.querySelectorAll(".q1");
+        radios.forEach(r => {
+          if (r.checked) {
+            console.log(r.value);
+          }
+        }); */
+        // Za formu je lakse ovako - 1. U JS kodu imati objekat form
+        // 2. Svi elem. forme u HTML-u moraju da imaju name attribute
+        // Uhvati form preko querySel, onda preko nje selektuj name(q1) pa onda i value
+        let odg1 = form.q1.value; // value checkiranog radio button-a
+        let odg2 = form.q2.value;
+        let odg3 = form.q3.value;
+        let odg4 = form.q4.value;
+        let odg5 = form.q5.value;
+        let odg6 = form.q6.value;
+        let odg7 = form.nick.value;
+        console.log(odg1, odg2, odg3, odg4, odg5);
+        let odgovori = [odg1, odg2, odg3, odg4, odg5, odg6];
+        let score = 0;
+        odgovori.forEach((odgovor, index) => {
+          if (odgovor == tacniOdgovori[index]) {
+            score += 14.28;
+          }
+        });
+        console.log(form.nick.value);
+        if (odg7.length > 5) {
+          score += 12.28;
+        }
+        console.log(score);
+        // h2.textContent = `Vas odgovor je: ${score}%`;
+        divOdg.style.display = "block";
+        scrollTo(0, 0); // Za vracanje na pocetak strane
+        let broj = 0;
+        let clock = setInterval(() => {
+          h2.textContent = `${odg7}, Vas odgovor je: ${broj}%`;
+          if (broj < score) {
+            broj++;
+          } else {
+            clearInterval(clock);
+          }
+        }, 25);
+      });
+    </script>
+  </body>
+</html>
